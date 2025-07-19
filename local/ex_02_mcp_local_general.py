@@ -18,4 +18,4 @@ with stdio_mcp_client:
 
     # Create an agent with these tools
     agent = Agent(tools=tools)
-    agent("Create a nice AWS futuristic Robot")
+    agent("Crea una imagen de Medellín. Guardarla en directorio <output>")

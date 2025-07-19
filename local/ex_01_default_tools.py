@@ -6,7 +6,7 @@ agent = Agent(tools=[calculator, current_time])
 
 # Give possible messages that will intentionally use tools
 message = """
-I am born in September 3rd 1999. How old am I in days and years?
+Cuánto falta para Diciembre 31 del 2025???
 """
 
 # Agent will use the shell and file reader tool when appropriate
