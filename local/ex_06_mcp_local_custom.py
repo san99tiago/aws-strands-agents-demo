@@ -1,12 +1,16 @@
+import os
 from mcp import stdio_client, StdioServerParameters
 from strands import Agent
 from strands.tools.mcp import MCPClient
 
 # Connect to an MCP server using stdio transport
 stdio_mcp_client = MCPClient(
-    lambda: stdio_client(StdioServerParameters(command="python", args=["main.py"]))
+    lambda: stdio_client(
+        StdioServerParameters(
+            command="python", args=[os.path.join(os.path.dirname(__file__), "main.py")]
+        )
+    )
 )
-
 # Create an agent with MCP tools
 with stdio_mcp_client:
     # Get the tools from the MCP server
