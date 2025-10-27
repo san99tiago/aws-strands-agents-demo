@@ -17,15 +17,15 @@ strands_telemetry.setup_meter(
 )  # Setup new meter provider and sets it as global
 
 bedrock_model = BedrockModel(
-    model_id="us.amazon.nova-lite-v1:0",
+    model_id="us.amazon.nova-pro-v1:0",
     params={"max_tokens": 1600, "temperature": 0.7},
 )
 
 
 @tool
 def get_balance(user_id: str) -> str:
-    """Get balance of a RufusBank user.
-    :param user_id (str): RufusBank user ID.
+    """Get balance of a  user.
+    :param user_id (str):  user ID.
     """
     saldo = random.randint(1000, 100000)
     return f"El saldo del usuario {user_id} es de: {saldo} COP..."
@@ -33,13 +33,13 @@ def get_balance(user_id: str) -> str:
 
 @tool
 def reset_credit_card(user_id: str) -> str:
-    """Reset credit card of a RufusBank user.
-    :param user_id (str): RufusBank user ID.
+    """Reset credit card of a  user.
+    :param user_id (str):  user ID.
     """
     return f"La tarjeta del usuario {user_id} fue reseteada correctamente..."
 
 
 agent = Agent(model=bedrock_model, tools=[get_balance, reset_credit_card])
-print(agent("(user_id: santi123) Cuánta plata tengo en mi cuenta?"))
+# print(agent("(user_id: santi123) Cuánta plata tengo en mi cuenta?"))
 # print(agent("(user_id: santi123) Me ayudas restaurando mi tarjeta porfa?"))
 print(agent("(user_id: santi123) Me restauras mi tarjeta y me cuentas mi saldo?"))
