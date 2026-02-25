@@ -1,4 +1,4 @@
 from strands import Agent
 
 agent = Agent()
-response = agent("Qué es RufusBank?")
+response = agent("Quién es el fundador de Amazon?")
