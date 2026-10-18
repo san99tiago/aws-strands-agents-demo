@@ -1,33 +1,43 @@
-from mcp import stdio_client, StdioServerParameters
+"""
+EX-05: MCP (Model Context Protocol) - Plug ANY existing MCP server as tools.
+
+Slide: "MCP: the USB-C of agent tools"
+Concepts:
+    - MCPClient is a ToolProvider: pass it DIRECTLY to Agent(tools=[...]).
+      The SDK manages start/stop of the MCP session (no 'with' block needed).
+    - MCPClient.load_servers(): reuse the same "mcpServers" JSON you use in Kiro / Claude Code.
+    - prefix: namespace tools to avoid collisions; tool_filters: allow/deny specific tools.
+
+Requires: uvx (https://docs.astral.sh/uv/)
+
+Run:
+    poetry run python local/ex_05_mcp_local_generic.py
+"""
+
 from strands import Agent
-from strands_tools import current_time
-from strands.tools.mcp import MCPClient
 from strands.models import BedrockModel
+from strands.tools.mcp import MCPClient
 
-# Connect to an MCP server using stdio transport
-stdio_mcp_client = MCPClient(
-    lambda: stdio_client(
-        StdioServerParameters(
-            command="uvx",
-            args=["awslabs.nova-canvas-mcp-server@latest"],
-            env={"AWS_REGION": "us-east-1"},
-        )
-    )
+MCP_CONFIG = {
+    "mcpServers": {
+        "aws-docs": {
+            "command": "uvx",
+            "args": ["awslabs.aws-documentation-mcp-server@latest"],
+            "env": {"FASTMCP_LOG_LEVEL": "ERROR"},
+        }
+    }
+}
+
+mcp_clients = MCPClient.load_servers(MCP_CONFIG, prefix_with_server_name=True)
+
+agent = Agent(
+    model=BedrockModel(model_id="us.anthropic.claude-sonnet-5-5", region_name="us-east-1"),
+    tools=mcp_clients,  # <- managed lifecycle
+    system_prompt="Eres un arquitecto de soluciones AWS para banca. Usa la documentación oficial y cita la URL.",
 )
 
-bedrock_model1 = BedrockModel(
-    model_id="us.amazon.nova-pro-v1:0",
-    params={"max_tokens": 1600, "temperature": 0.7},
+agent(
+    "Según la documentación oficial de AWS, qué es Amazon Bedrock AgentCore Runtime "
+    "y cuánto tiempo máximo puede durar una sesión? Responde en 4 viñetas en español."
 )
-
-# Create an agent with MCP tools
-with stdio_mcp_client:
-    # Get the tools from the MCP server
-    tools = stdio_mcp_client.list_tools_sync()
-    tools.append(current_time)
-
-    # Create an agent with these tools
-    agent = Agent(model=bedrock_model1, tools=tools)
-    agent(
-        "Quiero que me generes una imagen de medellin en Palmas con una vista a la ciudad."
-    )
+print("\n\nMCP tools used:", list(agent.event_loop_metrics.tool_metrics.keys()))

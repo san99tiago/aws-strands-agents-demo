@@ -1,50 +1,70 @@
+"""
+EX-10: RAG WITH BEDROCK KNOWLEDGE BASES - Ground answers in your documents.
+
+Slide: "RAG as a tool (agentic retrieval)"
+Concepts:
+    - Agentic RAG: the agent DECIDES when to search, can re-query and combine sources.
+    - Tool calls bedrock-agent-runtime.retrieve() and returns chunks + sources.
+    - (Alternative) strands_tools.retrieve or the MemoryManager + BedrockKnowledgeBaseStore.
+
+Set your KB:
+    export KB_ID=XXXXXXXXXX
+
+Run:
+    poetry run python local/ex_10_knowledge_base.py
+"""
+
 import os
-from strands import Agent
-from strands_tools import memory, use_agent
 
-# Set knowledge base ID (can be overridden by environment variable)
-KB_ID = os.environ.get("KB_ID", "YWPHVL3IHM")
-os.environ["STRANDS_KNOWLEDGE_BASE_ID"] = KB_ID
+import boto3
+from strands import Agent, tool
+from strands.models import BedrockModel
+
+KB_ID = os.getenv("KB_ID", "NKWD6MZBBG")  # "knowledge-base-bancos-general-001"
+kb_client = boto3.client("bedrock-agent-runtime", region_name="us-east-1")
 
 
-def run_kb_agent(query):
-    """Process a user query with the knowledge base agent."""
-    agent = Agent(tools=[memory, use_agent])
+@tool
+def search_bank_docs(query: str, max_results: int = 5) -> list[dict]:
+    """Search the bank's official documentation (products, fees, FAQs, policies).
 
-    # For retrieve actions, query the knowledge base with appropriate parameters
-    result = agent.tool.use_agent(action="retrieve", query=query)
-    # Convert the result to a string to extract just the content text
-    result_str = str(result)
-    print(result_str)
-
-    # Generate a clear, conversational answer using the retrieved information
-    answer = agent.tool.use_agent(
-        prompt=f'User question: "{query}"\n\nInformation from knowledge base:\n{result_str}\n\nStart your answer with newline character and provide a helpful answer based on this information:',
-        system_prompt="You are RUFFY, a friendly agent specialized in helping customers with their inquiries. Be friendly and always answer politely.",
+    Args:
+        query: Natural-language search query, in Spanish.
+        max_results: Number of chunks to retrieve.
+    """
+    response = kb_client.retrieve(
+        knowledgeBaseId=KB_ID,
+        retrievalQuery={"text": query},
+        retrievalConfiguration={"vectorSearchConfiguration": {"numberOfResults": max_results}},
     )
+    return [
+        {
+            "text": r["content"]["text"][:1200],
+            "score": round(r.get("score", 0), 3),
+            "source": r.get("location", {}).get("s3Location", {}).get("uri")
+            or r.get("location", {}).get("webLocation", {}).get("url"),
+        }
+        for r in response["retrievalResults"]
+    ]
 
+
+agent = Agent(
+    model=BedrockModel(model_id="us.anthropic.claude-sonnet-5-5", region_name="us-east-1"),
+    tools=[search_bank_docs],
+    system_prompt=(
+        "Eres RUFFY, asistente bancario. Responde SOLO con base en search_bank_docs. "
+        "Si no encuentras la respuesta, dilo. Cita la fuente al final."
+    ),
+)
 
 if __name__ == "__main__":
-    # Print welcome message
-    print("\n🧠 RUFFY agent with knowledge base🧠\n")
-
-    # Interactive loop
+    print("\nRUFFY + Knowledge Base (escribe 'exit' para salir)")
     while True:
         try:
-            user_input = input("\n> ")
-            if user_input.lower() in ["exit", "quit"]:
-                print("\nGoodbye! 👋")
-                break
-
-            if not user_input.strip():
-                continue
-
-            # Process the input through the knowledge base agent
-            print("Processing...")
-            run_kb_agent(user_input)
-
-        except KeyboardInterrupt:
-            print("\n\nExecution interrupted. Exiting...")
+            q = input("\n> ").strip()
+        except EOFError:
             break
-        except Exception as e:
-            print(f"\nAn error occurred: {str(e)}")
+        if q.lower() in {"exit", "quit"}:
+            break
+        if q:
+            agent(q)

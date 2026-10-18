@@ -1,34 +1,50 @@
+"""
+EX-06: CUSTOM MCP SERVER - Expose your own business capabilities via MCP.
+
+Slide: "Build once, reuse everywhere (MCP)"
+Concepts:
+    - mcp_server_anybank.py = a FastMCP stdio server (products + loan simulator).
+    - MCPClient(lambda: stdio_client(...)) = explicit transport factory.
+    - Interactive chat loop: the agent keeps conversation memory between turns.
+
+Run:
+    poetry run python local/ex_06_mcp_local_custom.py
+    (type 'exit' to quit)
+"""
+
 import os
-from mcp import stdio_client, StdioServerParameters
+import sys
+
+from mcp import StdioServerParameters, stdio_client
 from strands import Agent
+from strands.models import BedrockModel
 from strands.tools.mcp import MCPClient
 
-# Connect to an MCP server using stdio transport
-stdio_mcp_client = MCPClient(
-    lambda: stdio_client(
-        StdioServerParameters(
-            command="python", args=[os.path.join(os.path.dirname(__file__), "main.py")]
-        )
-    )
+SERVER = os.path.join(os.path.dirname(__file__), "mcp_server_anybank.py")
+
+anybank_mcp = MCPClient(
+    lambda: stdio_client(StdioServerParameters(command=sys.executable, args=[SERVER])),
+    prefix="anybank",
 )
-# Create an agent with MCP tools
-with stdio_mcp_client:
-    # Get the tools from the MCP server
-    tools = stdio_mcp_client.list_tools_sync()
 
-    # Create an agent with these tools
-    agent = Agent(
-        tools=tools,
-        system_prompt="You are a specialized agent called BRUJO that helps in generation of different things",
-    )
+agent = Agent(
+    model=BedrockModel(model_id="us.anthropic.claude-haiku-5-5", region_name="us-east-1"),
+    tools=[anybank_mcp],
+    system_prompt=(
+        "Eres ANDY, asesor comercial de AnyBank. Usa las herramientas MCP para productos y simulaciones. "
+        "Responde en español con cifras en COP."
+    ),
+)
 
-    # Loop for user's input until "exit"
-    while True:
+print("ANDY (AnyBank) - escribe 'exit' para salir. Ej: 'Simula un crédito de 20 millones a 36 meses'")
+while True:
+    try:
         user_input = input("\n\nUser: ").strip()
-        if user_input.lower() == "exit":
-            print("Goodbye my friend!")
-            break
-        if not user_input:
-            continue
-        print("Agent: ", end="")
+    except EOFError:
+        break
+    if user_input.lower() in {"exit", "quit"}:
+        print("Chao parce!")
+        break
+    if user_input:
+        print("ANDY: ", end="")
         agent(user_input)

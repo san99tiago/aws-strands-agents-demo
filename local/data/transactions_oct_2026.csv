@@ -1,0 +1,15 @@
+date,customer_id,merchant,category,amount_cop,channel,country
+2026-10-01,cust-001,Supermercado La 14,groceries,-185000,card_present,CO
+2026-10-02,cust-001,Netflix,subscriptions,-39900,ecommerce,US
+2026-10-03,cust-001,Nomina AnyCompany,salary,3900000,transfer,CO
+2026-10-04,cust-001,Gasolinera Terpel,fuel,-120000,card_present,CO
+2026-10-06,cust-001,Restaurante El Cielo,restaurants,-142000,card_present,CO
+2026-10-08,cust-001,GAMESHOP*INTL,gaming,-89900,ecommerce,SG
+2026-10-08,cust-001,GAMESHOP*INTL,gaming,-89900,ecommerce,SG
+2026-10-08,cust-001,GAMESHOP*INTL,gaming,-89900,ecommerce,SG
+2026-10-09,cust-001,Arriendo Apto,housing,-1800000,transfer,CO
+2026-10-11,cust-001,Farmacia Pasteur,health,-64000,card_present,CO
+2026-10-12,cust-001,Uber,transport,-23500,ecommerce,CO
+2026-10-13,cust-001,Amazon,shopping,-310000,ecommerce,US
+2026-10-14,cust-001,Spotify,subscriptions,-26900,ecommerce,US
+2026-10-15,cust-001,Cajero ATM Centro,cash,-400000,atm,CO
