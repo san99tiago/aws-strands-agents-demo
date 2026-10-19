@@ -2,6 +2,7 @@
 
 Hands-on demos and a masterclass deck for **[Strands Agents](https://strandsagents.com/)** (the open source Harness SDK by AWS) on **Amazon Bedrock**, with simple FSI scenarios for a fictional bank called **RufusBank** 🐶.
 
+- **Validated run report (PDF)**: [`output/2026-10-18-Strands-Agents-Examples-Report.pdf`](output/2026-10-18-Strands-Agents-Examples-Report.pdf), each example with how to run it, input, real output and validation.
 - **16 simple, runnable Python examples** in [`local/`](local/): from "hello world" to a 100% local model, MCP, memory, guardrails, Strands Decider, skills, agents-as-tools and model routing.
 - **Masterclass slides** (standalone HTML, 47 slides, animated): [`2026-10-18-Strands-Agents-Masterclass-Santi.html`](2026-10-18-Strands-Agents-Masterclass-Santi.html). Navigate with `←/→`, `I` for the index, `F` for fullscreen.
   - AI-generated illustrations (OpenAI `gpt-image-2.5-sunburst`), official logos (Kiro, Claude Code, Amazon Quick, OpenCode, Amazon Bedrock AgentCore, Amazon Quick Suite, AWS DevOps Agent), a repo QR code and timeline animations (agent loop, context window filling up, F1 pit-stop hooks, chaos → JSON, memory types, guardrails lanes, LLM vs Decider, supervisor + specialists).
@@ -100,6 +101,7 @@ Slides 39 (advanced concepts), 43 (Evals) and 44 (Strands Harness) show referenc
 ```
 .
 ├── 2026-10-18-Strands-Agents-Masterclass-Santi.html   # standalone animated slides
+├── output/                   # PDF report: every example with real input/output
 ├── local/                    # runnable Strands examples (ex_01 … ex_16)
 │   └── skills/               # SKILL.md packages (kyc-onboarding, fraud-triage)
 ├── agentcore-demo/  backend/  cdk/  lambda-layers/   # AWS deployment demos (CDK)
