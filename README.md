@@ -90,8 +90,8 @@ Bonus: the **Strands Agents MCP server** helps any coding agent (Kiro, Claude Co
 | 12 | `ex_12_human_in_the_loop.py` | `HumanInTheLoop`, interrupt / resume | 32 |
 | 13 | `ex_13_strands_decider.py` | Strands Decider: triage + tool-call gate | 33, 34 |
 | 14 | `ex_14_skills_goal_loop.py` | `AgentSkills` (SKILL.md) + `GoalLoop` | 35 |
-| 15 | `ex_15_agents_as_tools.py` | Supervisor + 4 specialists (`agent.as_tool()`) | 36, 37 |
-| 16 | `ex_16_model_router.py` | `ModelRouter`: Claude Haiku / Sonnet / Opus | 38 |
+| 15 | `ex_15_agents_as_tools.py` | Claude Haiku supervisor + 4 specialists (`agent.as_tool()`) | 37 |
+| 16 | `ex_16_model_router.py` | `ModelRouter`: Haiku/Luna · Sonnet/Terra · Opus/Sol (`PROVIDER=openai`) | 38 |
 
 Slides 39 (advanced concepts), 43 (Evals) and 44 (Strands Harness) show reference snippets; production deployment with Amazon Bedrock AgentCore is the topic of the next classes.
 

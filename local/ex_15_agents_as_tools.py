@@ -5,7 +5,7 @@ Slide: "Agents as Tools"
 Concepts:
     - agent.as_tool(): any Agent becomes a tool of another agent (hierarchical delegation).
     - The SUPERVISOR reads each specialist's name + description and decides who to call.
-    - Each specialist has its own prompt, tools and (cheaper) model.
+    - Each specialist has its own prompt and tools. Here everything runs on Claude Haiku (fast + cheap).
 
 Run:
     poetry run python local/ex_15_agents_as_tools.py
@@ -15,7 +15,6 @@ from strands import Agent, tool
 from strands.models import BedrockModel
 
 haiku = BedrockModel(model_id="us.anthropic.claude-haiku-5-5", region_name="us-east-1")
-sonnet = BedrockModel(model_id="us.anthropic.claude-sonnet-5-5", region_name="us-east-1")
 
 
 @tool
@@ -60,7 +59,7 @@ creditos = especialista("creditos", "Créditos y simulaciones de cuotas.", "Eres
 humano = especialista("humano", "Cuando el cliente pide un humano o hay una queja.", "Escalas casos a humanos.", [crear_ticket_humano])
 
 supervisor = Agent(
-    model=sonnet,
+    model=haiku,  # fast + cheap supervisor; switch to sonnet for harder orchestration
     tools=[faqs.as_tool(), fraudes.as_tool(), creditos.as_tool(), humano.as_tool()],
     system_prompt="Eres el supervisor de RufusBank. Delega en los especialistas y entrega UNA respuesta breve en español.",
 )

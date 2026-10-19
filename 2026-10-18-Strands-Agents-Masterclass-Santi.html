@@ -359,8 +359,8 @@ table.t td:last-child{border-right:1px solid var(--border2);border-radius:0 10px
 .gr-shield{position:absolute!important;left:700px;top:560px;width:160px;height:270px;border-radius:24px;background:linear-gradient(180deg,rgba(242,66,187,.18),rgba(142,72,255,.12));border:2px solid #F242BB;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;box-shadow:0 0 60px -12px #F242BB;z-index:1!important}
 .gr-shield svg{width:70px;height:70px;fill:none;stroke:#F242BB;stroke-width:1.6;animation:pulse 2.6s infinite}
 .gr-shield span{font-family:var(--mono);font-size:14px;letter-spacing:.14em;text-transform:uppercase;color:#FFB3E6}
-.vs-in{position:absolute!important;left:50%;top:186px;transform:translateX(-50%);padding:12px 22px;border-radius:999px;background:#1d2433;border:1px solid #41B3FF;font-size:19px;box-shadow:0 0 30px -10px #41B3FF;white-space:nowrap}
-.vs-in.on{transform:translateX(-50%)}
+.vs-in{display:inline-block;padding:12px 22px;border-radius:999px;background:#1d2433;border:1px solid #41B3FF;font-size:19px;box-shadow:0 0 30px -10px #41B3FF;white-space:nowrap}
+
 .vs-box{width:190px;height:84px;border-radius:16px;border:3px solid var(--c);background:#0d0d16;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:22px;font-weight:800;box-shadow:0 0 30px -8px var(--c)}
 .vs-box small{font-family:var(--mono);font-size:12px;font-weight:500;color:var(--muted)}
 .vs-out{min-height:190px;padding:14px 16px;border-radius:12px;background:#08080e;border:1px solid var(--border2)}
@@ -1406,15 +1406,15 @@ while result.stop_reason == "interrupt":                 # stateless: API, web, 
   <div class="bg bg-glow"></div>
   <div class="kicker m">Antes de Strands Decider</div>
   <h2 data-a="up">¿Qué es un <span class="c-g">LLM</span> y qué es un <span class="c-m">Decider</span>?</h2>
-  <div class="vs-in tl" data-t="0.2">📩 "Me están llegando cobros desde Singapur que no hice, ya van 3!!!"</div>
-  <div class="grid2" style="margin-top:84px;gap:40px">
-    <div class="card glow" style="--c:#00FF77;min-height:470px" data-a="left">
+  <div class="center" style="margin-top:20px"><div class="vs-in tl" data-t="0.2">📩 "Me están llegando cobros desde Singapur que no hice, ya van 3!!!"</div></div>
+  <div class="grid2" style="margin-top:20px;gap:40px">
+    <div class="card glow" style="--c:#00FF77;min-height:440px" data-a="left">
       <span class="tag">LLM · Large Language Model · System 2</span>
       <div class="row mt1" style="align-items:center;gap:16px"><div class="vs-box" style="--c:#00FF77">🧠 LLM<small>70B – 1T+ params</small></div><div class="flowline g" style="width:70px"></div><div class="mono c-s" style="font-size:15px">GENERA TOKENS</div></div>
       <div class="vs-out mt2"><div class="mono faint" style="font-size:12px;letter-spacing:.14em;margin-bottom:8px">SALIDA = TEXTO LIBRE, TOKEN A TOKEN</div><span class="tok tl z" data-t="1.60">Parece</span><span class="tok tl z" data-t="1.92"> un</span><span class="tok tl z" data-t="2.24"> posible</span><span class="tok tl z" data-t="2.56"> fraude.</span><span class="tok tl z" data-t="2.88"> Te</span><span class="tok tl z" data-t="3.20"> recomiendo</span><span class="tok tl z" data-t="3.52"> bloquear</span><span class="tok tl z" data-t="3.84"> tu</span><span class="tok tl z" data-t="4.16"> tarjeta</span><span class="tok tl z" data-t="4.48"> y</span><span class="tok tl z" data-t="4.80"> revisar</span><span class="tok tl z" data-t="5.12"> los</span><span class="tok tl z" data-t="5.44"> cobros…</span><span class="cur tl" data-t="1.6" style="color:#00FF77">█</span></div>
       <ul class="mt2"><li>Razona, planea, conversa y usa tools</li><li>Salida abierta: <b>cualquier texto</b></li><li>~1–5 s · en la nube · $ por token</li></ul>
     </div>
-    <div class="card glow" style="--c:#F242BB;min-height:470px" data-a="right">
+    <div class="card glow" style="--c:#F242BB;min-height:440px" data-a="right">
       <span class="tag">Decider · System 1 · Strands Labs</span>
       <div class="row mt1" style="align-items:center;gap:16px"><div class="vs-box" style="--c:#F242BB">⚡ Decider<small>~2B params · local</small></div><div class="flowline" style="width:70px"></div><div class="mono c-m" style="font-size:15px">ELIGE UNA OPCIÓN</div></div>
       <div class="vs-out mt2"><div class="mono faint" style="font-size:12px;letter-spacing:.14em;margin-bottom:8px">SALIDA = OPCIÓN + PROBABILIDAD CALIBRADA</div><div class="opt win" style="--c:#FF4D6A" data-t="3.4"><b>fraudes</b><div class="cbar" style="height:18px"><span style="--c:#FF4D6A" data-kf="0:width=0%;1.6:width=84%"></span></div><em>84%</em></div><div class="opt" style="--c:#41B3FF" data-t="9.9"><b>tarjetas</b><div class="cbar" style="height:18px"><span style="--c:#41B3FF" data-kf="0:width=0%;1.6:width=3%"></span></div><em>3%</em></div><div class="opt" style="--c:#AD5CFF" data-t="9.9"><b>créditos</b><div class="cbar" style="height:18px"><span style="--c:#AD5CFF" data-kf="0:width=0%;1.6:width=4%"></span></div><em>4%</em></div><div class="opt" style="--c:#FBD332" data-t="9.9"><b>cuentas</b><div class="cbar" style="height:18px"><span style="--c:#FBD332" data-kf="0:width=0%;1.6:width=10%"></span></div><em>10%</em></div><div class="tl z mt1" data-t="3.6" style="font-family:var(--mono);font-size:14px;color:#FFB3E6">choice = <b style="color:#fff">"fraudes"</b> · urgente = <b style="color:#fff">0.73</b> · 2 tokens de salida · ~600 ms</div></div>
@@ -1543,7 +1543,7 @@ agent = Agent(plugins=[GoalLoop(
         </g>
       </svg>
       <div class="aat-user tl" data-t="0.2-10.8">🧑 "Me robaron la tarjeta 4321, ¡bloquéala! ¿Y cuánto pagaría por 10M a 24 meses?"</div>
-      <div class="aat-sup" data-t="0.9-10.8"><span style="font-size:30px">🧑‍💼</span><b>Supervisor</b><small>Claude Sonnet · decide a quién llamar</small></div>
+      <div class="aat-sup" data-t="0.9-10.8"><span style="font-size:30px">🧑‍💼</span><b>Supervisor</b><small>Claude Haiku · decide a quién llamar</small></div>
       <div class="aat-sp" style="left:20px;--c:#41B3FF"><span>❓</span><b>FAQs</b><small>horarios, productos</small></div>
       <div class="aat-sp" style="left:197px;--c:#FF4D6A" data-t="2-9.5"><span>🚨</span><b>Fraudes</b><small>bloquear_tarjeta()</small></div>
       <div class="aat-sp" style="left:373px;--c:#00FF77" data-t="4-9.5"><span>💰</span><b>Créditos</b><small>simular_credito()</small></div>
@@ -1568,7 +1568,7 @@ humano   = especialista("humano", "Cliente pide un humano", ...,
                         tools=[crear_ticket_humano])
 
 supervisor = Agent(
-    model=sonnet,
+    model=haiku,            # supervisor rápido y barato
     tools=[faqs.as_tool(), fraudes.as_tool(),
            creditos.as_tool(), humano.as_tool()],
     system_prompt="Eres el supervisor de RufusBank. Delega y "
@@ -1576,7 +1576,7 @@ supervisor = Agent(
 )
 supervisor("Me robaron la tarjeta 4321, ¡bloquéala! ...")
 # Specialists called: ['fraudes', 'creditos']</pre></div></div>
-      <div class="callout" style="position:relative;left:auto;right:auto;bottom:auto;margin-top:16px;font-size:16px"><b>Patrón:</b> modelo potente para orquestar (Sonnet), modelos rápidos y baratos para los especialistas (Haiku).</div>
+      <div class="callout" style="position:relative;left:auto;right:auto;bottom:auto;margin-top:16px;font-size:16px"><b>Todo con Claude Haiku:</b> supervisor y especialistas rápidos y baratos. Si la orquestación se complica, sube solo el supervisor a Sonnet.</div>
     </div>
   </div>
   <div class="demos"><span class="demo">ex_15_agents_as_tools.py</span></div>
@@ -1595,12 +1595,12 @@ supervisor("Me robaron la tarjeta 4321, ¡bloquéala! ...")
       <circle visibility="hidden" r="8" fill="#AD5CFF" filter="url(#glow)"><set attributeName="visibility" to="visible" begin="1.6s"/><animateMotion dur="2.4s" begin="1.6s" repeatCount="indefinite" path="M280 215H520 M760 215C 860 215, 880 350, 1000 350"/></circle>
     </svg>
     <div class="abs card" style="left:0;top:150px;width:280px;--c:#C8C8D4" data-a="left"><span class="tag">Request</span><p>FAQ · horario de oficinas</p><p>Producto · débito vs crédito</p><p>Análisis · avalancha vs bola de nieve</p></div>
-    <div class="abs" style="left:520px;top:140px;width:240px;height:150px;border-radius:20px;background:var(--grad-warm);display:flex;flex-direction:column;align-items:center;justify-content:center;box-shadow:0 0 60px -10px #FF9900" data-a="pop"><b style="font-size:24px">ModelRouter</b><span class="mono" style="font-size:13px">ClassifierStrategy(haiku)</span></div>
-    <div class="abs card glow" style="left:1000px;top:30px;width:440px;--c:#00FF77" data-a="right"><span class="tag">Claude Haiku · rápido y barato</span><p>"¿A qué hora abren?" → <b class="c-s">claude-haiku</b></p></div>
-    <div class="abs card glow" style="left:1000px;top:170px;width:440px;--c:#41B3FF" data-a="right"><span class="tag">Claude Sonnet · balanceado</span><p>"¿Débito vs crédito?" → <b class="c-c">claude-sonnet</b></p></div>
-    <div class="abs card glow" style="left:1000px;top:300px;width:440px;--c:#AD5CFF" data-a="right"><span class="tag">Claude Opus · más capaz</span><p>estrategia de 3 deudas → <b class="c-p">claude-opus</b></p></div>
+    <div class="abs" style="left:520px;top:140px;width:240px;height:150px;border-radius:20px;background:var(--grad-warm);display:flex;flex-direction:column;align-items:center;justify-content:center;box-shadow:0 0 60px -10px #FF9900" data-a="pop"><b style="font-size:24px">ModelRouter</b><span class="mono" style="font-size:13px">ClassifierStrategy(haiku | luna)</span></div>
+    <div class="abs card glow" style="left:1000px;top:30px;width:440px;--c:#00FF77" data-a="right"><span class="tag">Rápido y barato</span><p><b class="c-s">Claude Haiku</b> o <b class="c-s">GPT Luna</b> · "¿A qué hora abren?"</p></div>
+    <div class="abs card glow" style="left:1000px;top:170px;width:440px;--c:#41B3FF" data-a="right"><span class="tag">Balanceado</span><p><b class="c-c">Claude Sonnet</b> o <b class="c-c">GPT Terra</b> · "¿Débito vs crédito?"</p></div>
+    <div class="abs card glow" style="left:1000px;top:300px;width:440px;--c:#AD5CFF" data-a="right"><span class="tag">Más capaz</span><p><b class="c-p">Claude Opus</b> o <b class="c-p">GPT Sol</b> · estrategia de 3 deudas</p></div>
   </div>
-  <div class="callout o"><b>FallbackStrategy</b> (default): si un modelo falla o hay throttling, cambia al siguiente. <b>ClassifierStrategy</b>: elige el modelo más barato que resuelve bien la tarea.</div>
+  <div class="callout o"><b>Anthropic o OpenAI, mismo código</b> (<code class="i">PROVIDER=openai</code>). <b>ClassifierStrategy</b> elige el modelo más barato que resuelve bien la tarea; <b>FallbackStrategy</b> cambia de modelo si uno falla o hay throttling.</div>
   <div class="demos"><span class="demo">ex_16_model_router.py</span></div>
 </section>
 
