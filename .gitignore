@@ -203,3 +203,5 @@ cython_debug/
 local/.sessions/
 local/.agent/
 __pycache__/
+.strands/
+local/.strands/

@@ -1,17 +1,16 @@
 """
-EX-16: HUMAN-IN-THE-LOOP - Pause the agent, ask a human, resume.
+EX-12: HUMAN-IN-THE-LOOP - Pause the agent, ask a human, resume.
 
-Slide: "Interrupts: stateless approval flows"
+Slide: "Human-in-the-loop"
 Concepts:
     - HumanInTheLoop intervention: every tool NOT in allowed_tools needs approval.
     - Default mode = INTERRUPT/RESUME (perfect for APIs, AgentCore, web apps):
         result.stop_reason == "interrupt"  -> show result.interrupts to a human
         agent([{"interruptResponse": {"interruptId": id, "response": "y"}}]) -> resume
     - ask="stdio" -> interactive CLI prompt instead.
-    - Also available: handoff_to_user vended tool, Confirm() decision in your own handlers.
 
 Run:
-    poetry run python local/ex_16_human_in_the_loop.py
+    poetry run python local/ex_12_human_in_the_loop.py
 """
 
 from strands import Agent, tool
@@ -20,31 +19,31 @@ from strands.vended_interventions.hitl import HumanInTheLoop
 
 
 @tool
-def get_card_status(card_last4: str) -> str:
-    """Get the status of a credit card.
+def estado_tarjeta(ultimos4: str) -> str:
+    """Consulta el estado y el cupo disponible de una tarjeta de crédito de RufusBank.
 
     Args:
-        card_last4: Last 4 digits of the card.
+        ultimos4: Últimos 4 dígitos de la tarjeta.
     """
-    return f"Tarjeta ****{card_last4}: ACTIVA, cupo disponible 3.200.000 COP"
+    return f"Tarjeta ****{ultimos4}: ACTIVA, cupo disponible 3.200.000 COP"
 
 
 @tool
-def increase_credit_limit(card_last4: str, new_limit_cop: int) -> str:
-    """Increase the credit limit of a card (requires analyst approval).
+def aumentar_cupo(ultimos4: str, nuevo_cupo_cop: int) -> str:
+    """Aumenta el cupo de una tarjeta de crédito (requiere aprobación de un analista).
 
     Args:
-        card_last4: Last 4 digits of the card.
-        new_limit_cop: New credit limit in COP.
+        ultimos4: Últimos 4 dígitos de la tarjeta.
+        nuevo_cupo_cop: Nuevo cupo en COP.
     """
-    return f"Cupo de ****{card_last4} actualizado a {new_limit_cop:,} COP"
+    return f"Cupo de ****{ultimos4} actualizado a {nuevo_cupo_cop:,} COP"
 
 
 agent = Agent(
     model=BedrockModel(model_id="us.anthropic.claude-haiku-5-5", region_name="us-east-1"),
-    tools=[get_card_status, increase_credit_limit],
-    interventions=[HumanInTheLoop(allowed_tools=["get_card_status"])],  # read-only = auto-approved
-    system_prompt="Eres el agente de tarjetas de AnyBank. Responde breve en español.",
+    tools=[estado_tarjeta, aumentar_cupo],
+    interventions=[HumanInTheLoop(allowed_tools=["estado_tarjeta"])],  # read-only = auto-approved
+    system_prompt="Eres el agente de tarjetas de RufusBank. Responde breve en español.",
     callback_handler=None,
 )
 
@@ -53,7 +52,7 @@ result = agent("Revisa mi tarjeta 4321 y súbeme el cupo a 8 millones")
 while result.stop_reason == "interrupt":
     responses = []
     for interrupt in result.interrupts:
-        print(f"\n\033[93m[APPROVAL NEEDED]\033[0m {interrupt.name}: {interrupt.reason}")
+        print(f"\n\033[93m[APROBACIÓN REQUERIDA]\033[0m {interrupt.name}: {interrupt.reason}")
         answer = input("Analista, ¿apruebas? (y/n): ").strip() or "y"
         responses.append({"interruptResponse": {"interruptId": interrupt.id, "response": answer}})
     result = agent(responses)  # resume exactly where it paused
