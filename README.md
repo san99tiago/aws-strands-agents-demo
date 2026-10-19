@@ -6,7 +6,7 @@ Hands-on demos and a masterclass deck for **[Strands Agents](https://strandsagen
 - **Masterclass slides** (standalone HTML, 47 slides, animated): [`2026-10-18-Strands-Agents-Masterclass-Santi.html`](2026-10-18-Strands-Agents-Masterclass-Santi.html). Navigate with `←/→`, `I` for the index, `F` for fullscreen.
   - AI-generated illustrations (OpenAI `gpt-image-2.5-sunburst`), official logos (Kiro, Claude Code, Amazon Quick, OpenCode, Amazon Bedrock AgentCore, Amazon Quick Suite, AWS DevOps Agent), a repo QR code and timeline animations (agent loop, context window filling up, F1 pit-stop hooks, chaos → JSON, memory types, guardrails lanes, LLM vs Decider, supervisor + specialists).
 
-Versions validated on 2026-10-18: `strands-agents 1.61.1` (`[otel, ollama]` extras), `strands-decider 0.1.0`, Ollama `0.15.4` + `gemma3:270m`. Bedrock models (us-east-1): Claude Opus / Sonnet / Haiku 5.5, Amazon Nova 2 Lite, Llama 4 Maverick, DeepSeek V3.2, Kimi K3.
+Versions validated on 2026-10-18: `strands-agents 1.61.1` (`[otel, ollama]` extras), `strands-decider 0.1.0`, Ollama `0.15.4` + `gemma3:270m`. Bedrock models (us-east-1): Claude Opus / Sonnet / Haiku 5.5, OpenAI GPT-5.6 Terra, Llama 4 Maverick, DeepSeek V3.2, Kimi K3.
 
 ## Architecture
 
@@ -77,7 +77,7 @@ Bonus: the **Strands Agents MCP server** helps any coding agent (Kiro, Claude Co
 | # | File | Concept | Slide |
 |---|------|---------|-------|
 | 01 | `ex_01_hello_world.py` | `from strands import Agent` + `Agent(...)("...")` | 20 |
-| 02 | `ex_02_bedrock_models.py` | `BedrockModel`: Claude, Nova, Llama, DeepSeek, Kimi | 21 |
+| 02 | `ex_02_bedrock_models.py` | `BedrockModel`: Claude, OpenAI GPT-5.6 Terra, Llama, DeepSeek, Kimi | 21 |
 | 03 | `ex_03_local_model_ollama.py` | `OllamaModel` + Gemma 3 270M, 100% local | 22 |
 | 04 | `ex_04_custom_tools.py` | `@tool`, Spanish docstrings, RufusBank mock data | 23 |
 | 05 | `ex_05_builtin_tools.py` | Built-in tools: `http_request` + `python_repl` | 24 |

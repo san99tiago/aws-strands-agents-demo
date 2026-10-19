@@ -793,19 +793,19 @@ while True:
   <div class="row" style="margin-top:26px;gap:44px;align-items:flex-start">
     <div style="width:700px;position:relative" data-a="left">
       <div class="row" style="justify-content:space-between;align-items:center">
-        <div class="row" style="align-items:center;gap:12px"><div class="avatar" style="--c:#41B3FF">🧑‍💻</div><b style="font-size:18px">Santi</b></div>
+        <div class="row" style="align-items:center;gap:12px"><div class="avatar" style="--c:#41B3FF">👩‍💻</div><b style="font-size:18px">Moni</b></div>
         <div class="mono faint" style="font-size:13px;letter-spacing:.14em">CONVERSACIÓN EN VIVO</div>
         <div class="row" style="align-items:center;gap:12px"><b style="font-size:18px">Agente Rufus</b><div class="avatar" style="--c:#AD5CFF">🤖</div></div>
       </div>
       <div class="chat mt2" style="height:400px;overflow:hidden">
-        <div class="msg h tl l" data-t="0.3-10.3"><small>Santi</small>Hola Rufus, quiero un crédito de vivienda 🏠</div>
+        <div class="msg h tl l" data-t="0.3-10.3"><small>Moni</small>Hola Rufus, quiero un crédito de vivienda 🏠</div>
         <div class="msg a tl r" data-t="1.6-10.3"><small>Agente</small>¡Claro! ¿Cuánto ganas al mes?</div>
-        <div class="msg h tl l" data-t="3-10.3"><small>Santi</small>8 millones, pero tengo deuda en la tarjeta 💳</div>
+        <div class="msg h tl l" data-t="3-10.3"><small>Moni</small>2 millones, pero tengo deuda en la tarjeta 💳</div>
         <div class="msg t tl r" data-t="4.3-10.3">🔧 consultar_deuda() → 2.100.000 COP</div>
         <div class="msg a tl r" data-t="5.6-10.3"><small>Agente</small>Con esa deuda tu cupo es menor, te explico…</div>
-        <div class="msg h tl l" data-t="6.9-10.3"><small>Santi</small>¿Y si pido 200 millones a 20 años?</div>
-        <div class="msg t tl r" data-t="8.2-10.3">🔧 simular_credito() → cuota 2.300.000</div>
-        <div class="msg a tl z" data-t="10.6" style="align-self:center;max-width:92%;background:#0c1a14;border:1px solid #00FF77"><small style="color:#00FF77">📝 resumen (Context Manager)</small>Santi · ingreso 8M · deuda TC 2,1M · busca vivienda 200M a 20 años · cuota simulada 2,3M</div>
+        <div class="msg h tl l" data-t="6.9-10.3"><small>Moni</small>¿Y si pido 80 millones a 20 años?</div>
+        <div class="msg t tl r" data-t="8.2-10.3">🔧 simular_credito() → cuota 880.000</div>
+        <div class="msg a tl z" data-t="10.6" style="align-self:center;max-width:92%;background:#0c1a14;border:1px solid #00FF77"><small style="color:#00FF77">📝 resumen (Context Manager)</small>Moni · ingreso 2M · deuda TC 2,1M · busca vivienda 80M a 20 años · cuota simulada 880k</div>
       </div>
     </div>
     <div class="fill" data-a="right">
@@ -950,25 +950,25 @@ from strands.models import BedrockModel
 
 BEDROCK_MODELS = {
     "Claude Sonnet 5.5": "us.anthropic.claude-sonnet-5-5",
-    "Amazon Nova 2 Lite": "us.amazon.nova-2-lite-v1:0",
+    "GPT-5.6 Terra": "us.openai.gpt-5.6-terra",
     "Llama 4 Maverick": "us.meta.llama4-maverick-17b-instruct-v1:0",
     "DeepSeek V3.2": "deepseek.v3.2",
     "Kimi K3": "us.moonshotai.kimi-k3",
 }
 for name, model_id in BEDROCK_MODELS.items():
     model = BedrockModel(model_id=model_id, region_name="us-east-1")
-    agent = Agent(model=model, system_prompt="Responde en español.")
+    agent = Agent(model=model, system_prompt="Eres un asistente amable.")
     agent("¿Qué es la bandeja paisa?")</pre></div></div>
     </div>
     <div class="fill col" style="gap:12px">
       <div class="mono faint" style="font-size:13px;letter-spacing:.12em" data-a="right">SALIDA REAL · MISMA PREGUNTA · 5 MODELOS</div>
       <div class="term" data-a="right" style="font-size:13.5px"><span class="y">Claude Sonnet 5.5 ›</span> Plato típico de Antioquia: frijoles, arroz, carne molida, chicharrón, chorizo, huevo, maduro, aguacate y arepa.
-<span class="y">Nova 2 Lite ›</span> Plato tradicional paisa, abundante y nutritivo.
+<span class="y">GPT-5.6 Terra ›</span> Plato típico antioqueño, abundante y variado… con hogao.
 <span class="y">Llama 4 ›</span> Gran variedad de alimentos servidos en una bandeja.
 <span class="y">DeepSeek ›</span> Conocido por su abundancia… 🫘🥓🍳🥑
 <span class="y">Kimi K3 ›</span> Uno de los platos más representativos de Colombia.</div>
       <div class="row" style="flex-wrap:wrap;gap:8px" data-a="up">
-        <span class="pill" style="--c:#D97757"><span class="dot" style="--c:#D97757"></span>Anthropic</span><span class="pill" style="--c:#FF9900"><span class="dot" style="--c:#FF9900"></span>Amazon Nova</span><span class="pill" style="--c:#4285F4"><span class="dot" style="--c:#4285F4"></span>Meta Llama</span><span class="pill" style="--c:#41B3FF"><span class="dot" style="--c:#41B3FF"></span>DeepSeek</span><span class="pill" style="--c:#fff"><span class="dot" style="--c:#fff"></span>Kimi</span><span class="pill" style="--c:#10a37f"><span class="dot" style="--c:#10a37f"></span>gpt-oss</span><span class="pill" style="--c:#F242BB"><span class="dot" style="--c:#F242BB"></span>Mistral · Qwen</span>
+        <span class="pill" style="--c:#D97757"><span class="dot" style="--c:#D97757"></span>Anthropic</span><span class="pill" style="--c:#10a37f"><span class="dot" style="--c:#10a37f"></span>OpenAI GPT</span><span class="pill" style="--c:#4285F4"><span class="dot" style="--c:#4285F4"></span>Meta Llama</span><span class="pill" style="--c:#41B3FF"><span class="dot" style="--c:#41B3FF"></span>DeepSeek</span><span class="pill" style="--c:#fff"><span class="dot" style="--c:#fff"></span>Kimi</span><span class="pill" style="--c:#FF9900"><span class="dot" style="--c:#FF9900"></span>Amazon Nova</span><span class="pill" style="--c:#F242BB"><span class="dot" style="--c:#F242BB"></span>Mistral · Qwen</span>
       </div>
     </div>
   </div>
